@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Productos - Hoodies District</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">
+        Hoodies District
+    </h1>
+
+    <h2 class="mb-4">
+        Lista de Productos
+    </h2>
+
+    <!-- Botón para registrar un producto -->
+    <a th:href="@{/productos/nuevo}"
+       class="btn btn-success mb-3">
+        + Registrar producto
+    </a>
+
+    <!-- Tabla de productos -->
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <!-- Recorrer los productos -->
+        <tr th:each="producto : ${productos}">
+
+            <td th:text="${producto.id}">
+                1
+            </td>
+
+            <td th:text="${producto.nombre}">
+                Producto
+            </td>
+
+            <td th:text="${producto.precio}">
+                0.00
+            </td>
+
+            <td th:text="${producto.cantidad}">
+                0
+            </td>
+
+            <td>
+
+                <!-- Eliminar -->
+                <a th:href="@{/productos/eliminar/{id}(id=${producto.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Está seguro de eliminar este producto?');">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        <!-- Mensaje cuando no existen productos -->
+        <tr th:if="${#lists.isEmpty(productos)}">
+
+            <td colspan="5" class="text-center">
+                No hay productos registrados.
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
